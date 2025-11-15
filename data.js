@@ -50,86 +50,98 @@ const fundraisingData = {
     // Collected funds from donors
     collectedFunds: [
         {
-            donor: "Amara Silva",
+            donor: "Mohamed Mohamed",
             amount: 5000,
             isMonthly: true,
             months: 6
         },
         {
-            donor: "Nimal Perera",
+            donor: "Fatima Nusrath",
             amount: 10000,
             isMonthly: false,
             months: 1
         },
         {
-            donor: "Chamari Fernando",
+            donor: "Well Wisher",
             amount: 2000,
             isMonthly: true,
             months: 6
         },
         {
-            donor: "Kasun Rajapaksa",
+            donor: "Ahmed Farook",
             amount: 5000,
             isMonthly: false,
             months: 1
         },
         {
-            donor: "Dilini Wickramasinghe",
+            donor: "Ayesha Rafeek",
             amount: 1000,
             isMonthly: true,
             months: 6
         },
         {
-            donor: "Roshan De Silva",
+            donor: "Imran Shaheed",
             amount: 2000,
             isMonthly: false,
             months: 1
         },
         {
-            donor: "Priya Jayawardena",
+            donor: "Well Wisher",
             amount: 500,
             isMonthly: true,
             months: 6
         },
         {
-            donor: "Tharindu Bandara",
+            donor: "Hassan Ibrahim",
             amount: 3000,
             isMonthly: false,
             months: 1
         },
         {
-            donor: "Malini Gunawardena",
+            donor: "Zainab Akram",
             amount: 1000,
             isMonthly: true,
             months: 4
         },
         {
-            donor: "Kamal Dissanayake",
+            donor: "Ismail Nazeer",
             amount: 2000,
             isMonthly: true,
             months: 6
         },
         {
-            donor: "Sanduni Jayasinghe",
+            donor: "Well Wisher",
             amount: 5000,
             isMonthly: true,
             months: 3
         },
         {
-            donor: "Nuwan Ratnayake",
+            donor: "Fathima Zahra",
             amount: 1000,
             isMonthly: false,
             months: 1
         },
         {
-            donor: "Ishara Mendis",
+            donor: "Abdul Hakeem",
             amount: 500,
             isMonthly: true,
             months: 6
         },
         {
-            donor: "Lakmal Abeysekara",
+            donor: "Well Wisher",
             amount: 2000,
+            isMonthly: false,
+            months: 1
+        },
+        {
+            donor: "Mariam Shireen",
+            amount: 1000,
+            isMonthly: true,
+            months: 6
+        },
+        {
+            donor: "Yusuf Hameed",
+            amount: 3000,
             isMonthly: false,
             months: 1
         }

@@ -188,8 +188,14 @@ body {
 }
 
 /* Tables */
+.table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
 .table {
     margin-bottom: 0;
+    min-width: 500px;
 }
 
 .table thead {
@@ -471,12 +477,25 @@ footer .text-muted {
     }
     
     .table {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
     
     .table thead th,
     .table tbody td {
-        padding: 10px 8px;
+        padding: 8px 6px;
+        white-space: nowrap;
+    }
+    
+    .table thead th {
+        font-size: 0.8rem;
+    }
+    
+    .table-grand-total td {
+        font-size: 0.95rem;
     }
     
     .donation-card {
