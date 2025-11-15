@@ -4,8 +4,8 @@ const fundraisingData = {
     fundTitle: "O/L Class Support 2025",
     fundDescription: "Help us provide quality Ordinary Level education through classes organized by the School Development Association in collaboration with Generous Hand Community Support Group. Your contribution will directly support students' academic success.",
     
-    // Hero Image URL
-    heroImage: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&h=300&fit=crop",
+    // Hero Image URL (Classroom - students concentrating)
+    heroImage: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1600&h=300&q=80",
     
     // Number of months for the program
     programMonths: 6,
