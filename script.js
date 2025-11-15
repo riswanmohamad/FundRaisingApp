@@ -209,7 +209,11 @@ function openDonationModal(presetAmount) {
     // Reset form
     form.reset();
     customDiv.style.display = 'none';
-    monthsDiv.style.display = 'none';
+    monthsDiv.style.display = 'block'; // Show by default since monthly is default
+    
+    // Set monthly as default
+    document.getElementById('monthly').checked = true;
+    document.getElementById('monthsCount').required = true;
     
     // Set preset amount if provided
     if (presetAmount) {
