@@ -132,6 +132,7 @@ function renderDonationCards() {
             const cardElement = document.createElement('div');
             cardElement.className = 'donation-card' + (card.isCollected ? ' collected' : '');
             cardElement.dataset.index = card.index;
+            cardElement.dataset.amount = card.amount;
             
             cardElement.innerHTML = `
                 <div class="donation-card-amount">${formatCurrency(card.amount)}</div>
