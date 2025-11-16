@@ -2,13 +2,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     initializePage();
     setupEventListeners();
+    applyTranslations();
 });
 
 // Initialize all page elements
 function initializePage() {
-    // Set fund title and description
-    document.getElementById('fundTitle').textContent = fundraisingData.fundTitle;
-    document.getElementById('fundDescription').textContent = fundraisingData.fundDescription;
+    // Set language selector
+    const languageSelect = document.getElementById('languageSelect');
+    languageSelect.value = currentLanguage;
+    
+    // Set hero image
     document.getElementById('heroImage').src = fundraisingData.heroImage;
     
     // Calculate and display progress
@@ -22,6 +25,25 @@ function initializePage() {
     
     // Render donation cards
     renderDonationCards();
+}
+
+// Apply translations to all elements with data-i18n attribute
+function applyTranslations() {
+    // Translate all elements with data-i18n
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+        const key = element.getAttribute('data-i18n');
+        element.textContent = t(key);
+    });
+    
+    // Translate placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+        const key = element.getAttribute('data-i18n-placeholder');
+        element.placeholder = t(key);
+    });
+    
+    // Update dynamic content
+    document.getElementById('fundTitle').textContent = t('fundTitle');
+    document.getElementById('fundDescription').textContent = t('fundDescription');
 }
 
 // Update progress bar and statistics
@@ -62,7 +84,7 @@ function populateBudgetTable() {
         
         const row = document.createElement('tr');
         row.innerHTML = `
-            <td>${item.subject}</td>
+            <td>${getSubjectTranslation(item.subject)}</td>
             <td class="text-center">${item.classesPerMonth}</td>
             <td class="text-end">${formatCurrency(item.fundPerClass)}</td>
             <td class="text-center">${item.months}</td>
@@ -71,7 +93,7 @@ function populateBudgetTable() {
         tbody.appendChild(row);
     });
     
-    // Update totals
+    // Update totals with translations
     document.getElementById('budgetSubtotal').textContent = formatCurrency(subtotal);
     document.getElementById('additionalFundAmount').textContent = formatCurrency(fundraisingData.additionalFund);
     document.getElementById('budgetGrandTotal').textContent = formatCurrency(subtotal + fundraisingData.additionalFund);
@@ -94,7 +116,7 @@ function populateCollectedTable() {
             <td class="text-end">${formatCurrency(fund.amount)}</td>
             <td class="text-center">
                 <span class="badge ${fund.isMonthly ? 'bg-primary' : 'bg-success'}">
-                    ${fund.isMonthly ? 'Monthly' : 'One Time'}
+                    ${fund.isMonthly ? t('monthly') : t('oneTime')}
                 </span>
             </td>
             <td class="text-center">${fund.months}</td>
@@ -136,7 +158,7 @@ function renderDonationCards() {
             
             cardElement.innerHTML = `
                 <div class="donation-card-amount">${formatCurrency(card.amount)}</div>
-                <div class="donation-card-label">${card.isCollected ? 'Collected' : 'Available'}</div>
+                <div class="donation-card-label">${card.isCollected ? t('collectedCard') : t('available')}</div>
                 ${card.isCollected ? '<div class="donation-card-cross">✕</div>' : ''}
             `;
             
@@ -159,6 +181,11 @@ function formatCurrency(amount) {
 
 // Setup event listeners
 function setupEventListeners() {
+    // Language selector
+    document.getElementById('languageSelect').addEventListener('change', function(e) {
+        changeLanguage(e.target.value);
+    });
+    
     // Custom amount button
     document.getElementById('customAmountBtn').addEventListener('click', function() {
         openDonationModal(null);
@@ -248,7 +275,7 @@ function handleDonationSubmit() {
     
     // Validate mobile number
     if (!/^\d+$/.test(donorMobile)) {
-        alert('Please enter a valid mobile number (numbers only)');
+        alert(t('validMobile'));
         return;
     }
     
@@ -258,7 +285,7 @@ function handleDonationSubmit() {
     if (amountSelect === 'custom') {
         finalAmount = parseInt(customAmountInput);
         if (!finalAmount || finalAmount < 100) {
-            alert('Please enter a valid amount (minimum Rs. 100)');
+            alert(t('validAmount'));
             return;
         }
     } else {
@@ -311,7 +338,16 @@ function markCardAsCollected(amount) {
 // Show success message
 function showSuccessMessage(name, amount, isMonthly, months) {
     const totalAmount = amount * months;
-    const message = `Thank you, ${name}! Your ${isMonthly ? 'monthly' : 'one-time'} donation of ${formatCurrency(amount)}${isMonthly ? ' for ' + months + ' months' : ''} (Total: ${formatCurrency(totalAmount)}) has been recorded. You will be contacted soon to arrange the payment.`;
+    const typeText = isMonthly ? t('monthlyFor') : t('oneTimeFor');
+    const monthInfo = isMonthly ? t('forMonths').replace('{months}', months) : '';
+    
+    let message = t('successMessage')
+        .replace('{type}', typeText)
+        .replace('{amount}', formatCurrency(amount))
+        .replace('{monthInfo}', monthInfo)
+        .replace('{total}', formatCurrency(totalAmount));
+    
+    message = `${t('thankYou')}, ${name}! ${message}`;
     
     // Create alert element
     const alertDiv = document.createElement('div');
@@ -320,7 +356,7 @@ function showSuccessMessage(name, amount, isMonthly, months) {
     alertDiv.style.maxWidth = '90%';
     alertDiv.innerHTML = `
         <i class="bi bi-check-circle-fill me-2"></i>
-        <strong>Success!</strong> ${message}
+        <strong>${t('success')}</strong> ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
     
@@ -339,3 +375,16 @@ document.getElementById('donationModal').addEventListener('hidden.bs.modal', fun
     document.getElementById('customAmountDiv').style.display = 'none';
     document.getElementById('monthsDiv').style.display = 'none';
 });
+
+// Change language
+function changeLanguage(lang) {
+    if (setLanguage(lang)) {
+        // Reapply all translations
+        applyTranslations();
+        
+        // Refresh dynamic content
+        populateBudgetTable();
+        populateCollectedTable();
+        renderDonationCards();
+    }
+}

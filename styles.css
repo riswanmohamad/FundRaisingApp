@@ -29,6 +29,52 @@ body {
     padding-bottom: 20px;
 }
 
+/* Language Selector */
+.language-selector {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+}
+
+.language-selector .form-select {
+    width: auto;
+    min-width: 120px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 8px 12px;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-selector .form-select:hover {
+    background-color: white;
+    box-shadow: var(--shadow-lg);
+}
+
+.language-selector .form-select:focus {
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 0.2rem rgba(236, 72, 153, 0.25);
+}
+
+@media (max-width: 576px) {
+    .language-selector {
+        top: 10px;
+        right: 10px;
+    }
+    
+    .language-selector .form-select {
+        min-width: 100px;
+        font-size: 0.85rem;
+        padding: 6px 10px;
+    }
+}
+
 /* Hero Section */
 .hero-section {
     position: relative;
